@@ -1,0 +1,55 @@
+header
+{
+    text-align: center;
+}
+
+#videoTracksArea
+{
+    padding:0;
+    display: block;
+    margin: auto;
+    width: 810px;
+    height:400px;
+    border: 1px solid #777;
+    & div
+    {
+        border: 1px solid #777;
+        margin:0;
+        padding: 0;
+        position: relative;
+    }
+    #mainVideoTrack
+    {
+        display: inline-block;
+        width: 600px;
+        height: 400px;
+        vertical-align: top;
+    }
+    #classroomTracksContainer
+    {
+        display: inline-block;
+        width: 205px;
+        height: 400px;
+        vertical-align: top;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        .classroomTrack
+        {
+            display: inline-block;
+            width: 150px;
+            height: 100px;
+            margin:3px;
+        }
+    }
+    label.caption
+    {
+        display: inline-block;
+        position: absolute;
+        top:0px;
+        left: 0px;
+        margin: 0;
+        padding: 1px 5px;
+        background: #777;
+        color: #fff;
+    }
+}
