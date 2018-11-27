@@ -19,7 +19,8 @@ class twilioClassroom
     }
     addMembers(members)
     {
-
+        this.teacher=members.teacher;
+        this.students=members.students;
     }
 }
 
