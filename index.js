@@ -14,16 +14,16 @@ const users={
         4:"Mohammad",
         5:"Ali"
         }
-
-var c1=new classroom(TWILIO_ACCOUNT_SID,TWILIO_API_KEY,TWILIO_API_SECRET);
-c1.addMembers({
-    teacher:{id:1,name:"Taha Khaksari"}
-    ,students:[
-        {id:2,name:"Atefeh"},
-        {id:3,name:"Essi"},
-        {id:4,name:"Mohammad"}
-    ]
-});
+var classrooms={};
+// var c1=new classroom(TWILIO_ACCOUNT_SID,TWILIO_API_KEY,TWILIO_API_SECRET);
+// c1.addMembers({
+//     teacher:{id:1,name:"Taha Khaksari"}
+//     ,students:[
+//         {id:2,name:"Atefeh"},
+//         {id:3,name:"Essi"},
+//         {id:4,name:"Mohammad"}
+//     ]
+// });
 
 // Serve static files from the main build directory
 app.use(express.static(__dirname + '/static'));
@@ -32,12 +32,28 @@ app.use(express.static(__dirname + '/static'));
 app.get('/', function(req, res){
     res.sendFile("static/index.html", {root: '.'});
 });
-app.get('/classroom', function(req,res,next){
+app.get('/classroom/:classId', function(req,res,next){
+    //var express = require('express');
+    var cid=req.params.classId;
     var uid=req.query.uid;
-    var h=`
-        it is Classsroom for ${users[uid]}
-    `;
-    res.send(h);
+    if(!classrooms[cid])//here can check classId is invalid Or not Started or ect
+    {
+        classrooms[cid]=new classroom(TWILIO_ACCOUNT_SID,TWILIO_API_KEY,TWILIO_API_SECRET);
+        classrooms[cid].addMembers({
+                teacher:{id:1,name:"Taha Khaksari"}
+                ,students:[
+                    {id:2,name:"Atefeh"},
+                    {id:3,name:"Essi"},
+                    {id:4,name:"Mohammad"}
+                ]
+            });
+        classrooms[cid].setInfo({
+            name:"Test Class"
+        });
+        console.log("class "+cid+" created.")
+    }
+    var classroomView=require('./src/classroomView.js');
+    classroomView.send(classrooms[cid],uid,req,res,next);
 });
 
 

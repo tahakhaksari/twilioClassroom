@@ -22,6 +22,10 @@ class twilioClassroom
         this.teacher=members.teacher;
         this.students=members.students;
     }
+    setInfo(info)
+    {
+        this.name=info.name;
+    }
 }
 
 module.exports=twilioClassroom;
